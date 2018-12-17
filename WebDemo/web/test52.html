@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="js/vue.js"></script>
+<script src="js/jcanvas.min.js"></script>
+
+
+<div id="app">
+    <a href="http://www.apple.com" @click="handleClick('禁止打开',$evet)">打开链接</a>
+    <label v-on:mouseup="f1">455</label>
+    <canvas v-on:mouseup="f1" v-on:mousemove="f2" style="width: 200px ;height: 200px;border: 2px solid red" ></canvas>
+</div>
+<script>
+    var app=new Vue({
+        el:'#app',
+        methods:{
+            handleClick:function(message,event){
+                event.preventDefault();
+                window.alert(message);
+            },
+            f1:function(){
+                alert("13");
+            },
+            f2:function () {
+                alert("789")
+            }
+
+        }
+
+    })
+</script>
+</body>
+
+</html>

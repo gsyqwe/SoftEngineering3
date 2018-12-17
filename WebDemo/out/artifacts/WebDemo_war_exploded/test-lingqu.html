@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+<div id="mission_receive">
+    <div v-for="item in tasklist">
+        <div style="width: 10%;height: 200px;border: 2px solid red;float: left;margin-left: 20%;margin-top: 50px">
+            <label class="form-inline" style="float: left">任务编号：</label><p>2</p>
+            <label class="form-inline" style="float: left">任务描述：</label><p>789</p>
+            <input type="button" class="btn btn-primary" value="领取任务" >
+        </div>
+    </div>
+
+</div>
+
+<ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+</ul>
+
+</body>
+
+<script>
+    new Vue({
+        el:"#mission_receive",
+        created:function () {
+            for (var i=0;i<5;i++){
+                this.tasklist.push(i)
+            }
+        }
+        ,
+        data:{
+            tasklist:[]
+        },
+        method:{
+
+        }
+    })
+
+</script>
+</html>

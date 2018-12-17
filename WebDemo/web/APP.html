@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <h1>hello</h1>
+    <p>
+        <router-link  to="/foo">Go to Foo</router-link>
+        <router-link  to="/bar">Go to Bar</router-link>
+    </p>
+    <router-view></router-view>
+
+</div>
+
+</body>
+<script>
+    import foo from "./compoents/Not"
+
+    import bar from "./compoents/Aleady"
+    Vue.use(VueRouter)
+
+
+
+
+    var router=new VueRouter({
+        routes:[
+            { path: '/foo', component: foo },
+            { path: '/bar', component: bar }
+        ]
+    })
+
+    const app = new Vue({
+        router
+    }).$mount('#app')
+
+
+</script>
+</html>

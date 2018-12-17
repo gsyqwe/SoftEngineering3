@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+    <servlet>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <servlet-class>Servlet.WelcomeServlet</servlet-class>
+        <init-param>
+            <param-name>greeting</param-name>
+            <param-value>Welcome You</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>WelcomeServlet</servlet-name>
+        <url-pattern>/welcome</url-pattern>
+    </servlet-mapping>
+
+
+
+
+    <servlet>
+        <servlet-name>myServlet</servlet-name>
+        <servlet-class>Servlet.MyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>myServlet</servlet-name>
+        <url-pattern>/Servlet.MyServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>Servlet.LoginServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/LoginServlet</url-pattern>
+    </servlet-mapping>
+
+
+
+
+
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>Servlet.RegisterServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/RegisterServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>NewTaskServlet</servlet-name>
+        <servlet-class>Servlet.NewTaskServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>NewTaskServlet</servlet-name>
+        <url-pattern>/NewTaskServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DemoServlet</servlet-name>
+        <servlet-class>Servlet.DemoServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DemoServlet</servlet-name>
+        <url-pattern>/DemoServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>NotSubmitServlet</servlet-name>
+        <servlet-class>Servlet.NotSubmitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>NotSubmitServlet</servlet-name>
+        <url-pattern>/NotSubmitServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>AlreadySubmitServlet</servlet-name>
+        <servlet-class>Servlet.AlreadySubmitServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AlreadySubmitServlet</servlet-name>
+        <url-pattern>/AlreadySubmitServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>WorkServlet</servlet-name>
+        <servlet-class>Servlet.WorkServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>WorkServlet</servlet-name>
+        <url-pattern>/WorkServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>WholeSaveServlet</servlet-name>
+        <servlet-class>Servlet.WholeSaveServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>WholeSaveServlet</servlet-name>
+        <url-pattern>/WholeSaveServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DivisionSaveServlet</servlet-name>
+        <servlet-class>Servlet.DivisionSaveServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DivisionSaveServlet</servlet-name>
+        <url-pattern>/DivisionSaveServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DivisionModifyServlet</servlet-name>
+        <servlet-class>Servlet.DivisionModifyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DivisionModifyServlet</servlet-name>
+        <url-pattern>/DivisionModifyServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>LabelSaveServlet</servlet-name>
+        <servlet-class>Servlet.LabelSaveServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>LabelSaveServlet</servlet-name>
+        <url-pattern>/LabelSaveServlet</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>LabelModifyServelt</servlet-name>
+        <servlet-class>Servlet.LabelModifyServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LabelModifyServelt</servlet-name>
+        <url-pattern>/LabelModifyServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>

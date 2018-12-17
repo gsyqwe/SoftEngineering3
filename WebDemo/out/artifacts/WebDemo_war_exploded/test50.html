@@ -1,0 +1,111 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>选择多个图片上传</title>
+    <script src="js/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/newtask.css" >
+    <link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+</head>
+
+<body background="images/1.jpg">
+<div id="newtask" style="margin :0px auto; width:990px;">
+    <input type="file" name="file" id="doc" multiple="multiple" style="opacity:0.5;margin-left: 30%" class="upload" @change="setImagePreviews"  accept="image/*" />
+
+    <div id="dd" style="width:990px ;height:185px" contenteditable="true"></div>
+    <label class="form-inline">积分设置：<input type="text" class="form-control" style="opacity: 0.5"/></label>
+    <label class="form-inline">任务描述：<input type="text" class="form-control" style="opacity: 0.5;width: 400px"/></label>
+    <input type="button" class="btn btn-primary" value="提交任务" @click="submit">
+</div>
+
+</body>
+
+<script>
+
+    new Vue({
+        el:'#newtask',
+        data:{
+            picArray:[],
+        },
+        methods:{
+            <!--选择图片之后预览图片 并将图片途径传到picArray-->
+            setImagePreviews:function () {
+                this.picArray=[]
+                var docObj = document.getElementById("doc");
+                var dd = document.getElementById("dd");
+                dd.innerHTML = "";
+                var fileList = docObj.files;
+                for (var i = 0; i < fileList.length; i++) {
+                    this.picArray.push(fileList[i].name)
+                    dd.innerHTML += "<div style='float:left' > <img id='img" + i + "' /> </div>";
+                    var imgObjPreview = document.getElementById("img"+i);
+                    if (docObj.files && docObj.files[i]) {
+                        //火狐下，直接设img属性
+                        imgObjPreview.style.display = 'block';
+                        imgObjPreview.style.width = '150px';
+                        imgObjPreview.style.height = '180px';
+                        imgObjPreview.style.opacity = '0.7';
+                        imgObjPreview.style.border='2px solid red';
+                        //imgObjPreview.src = docObj.files[0].getAsDataURL();
+                        //火狐7以上版本不能用上面的getAsDataURL()方式获取，需要一下方式
+                        imgObjPreview.src = window.URL.createObjectURL(docObj.files[i]);
+                    }
+                    else {
+                        //IE下，使用滤镜
+                        docObj.select();
+                        var imgSrc = document.selection.createRange().text;
+                        alert(imgSrc)
+                        var localImagId = document.getElementById("img" + i);
+                        //必须设置初始大小
+                        localImagId.style.width = "150px";
+                        localImagId.style.height = "180px";
+                        //图片异常的捕捉，防止用户修改后缀来伪造图片
+                        try {
+                            localImagId.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+                            localImagId.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = imgSrc;
+                        }
+                        catch (e) {
+                            alert("您上传的图片格式不正确，请重新选择!");
+                            return false;
+                        }
+                        imgObjPreview.style.display = 'none';
+                        document.selection.empty();
+                    }
+                }
+
+                return true;
+            },
+
+            submit:function () {
+                axios.get("?", {
+                    params: {
+                        userID:"",
+                        method:"taskSave",
+                    },
+                    data:{
+                        list:this.picArray
+                    },
+                    header: {
+                        token: "jack"
+                    }
+                }).then(res=>function () {
+                        alert("新任务提交成功")
+                    }.error(function () {
+                        alert("新任务提交失败")
+                    })
+                )
+
+            }
+        }
+
+
+    })
+
+
+
+</script>
+
+
+</html>

@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/canvas.css">
+    <script src="js/jQuery.js"></script>
+    <script src="js/canvas.js"></script>
+    <script src="js/vue.js"></script>
+    <style>
+        .box {
+
+            width: 0px;
+            height: 0px;
+            position: absolute;
+            opacity: 0.5;
+            cursor: move;
+            border: 5px solid black;
+        }
+    </style>
+
+</head>
+<body >
+<div id="app">
+    <p>{{flag}}</p>
+    <ul class="menu">
+        <li class="parent hasson"><div>工具</div>
+            <ul class="son">
+                <li data-role="line" @click="changeflagwhole">整体标注</li>
+                <li data-role="rect" @click="changeflagdivision">区域划分</li>
+                <li data-role="pen" @click="changeflaglabel">局部标注</li>
+            </ul>
+        </li>
+
+
+        <li class="parent xpc">
+            <div>清空</div>
+        </li>
+
+    </ul>
+
+
+    <div class="container">
+
+        <canvas id="canvas" width="800px" height="600px"  @mousedown="canvasdraw"  >
+
+        </canvas>
+
+    </div>
+
+
+</div>
+</body>
+<script>
+  var m=  new Vue({
+        el:'#app',
+        data:{
+            flag:0,
+
+    },
+    methods:{
+        changeflagwhole:function(){
+            this.flag=1;
+
+        },
+        changeflagdivision:function(){
+            this.flag=2;
+        },
+        changeflaglabel:function(){
+            this.flag=3;
+        },
+        canvasdraw:function () {
+
+            if(this.flag==1){
+
+            }else if(this.flag==2){
+
+                // startX, startY 为鼠标点击时初始坐标
+                // diffX, diffY 为鼠标初始坐标与 box 左上角坐标之差，用于拖动
+                var startX, startY, diffX, diffY;
+                // 是否拖动，初始为 false
+                var dragging = false;
+
+                // 鼠标按下
+                document.onmousedown = function(e) {
+                    if(m.flag==2) {
+                        startX = e.pageX;
+                        startY = e.pageY;
+
+                        // 如果鼠标在 box 上被按下
+                        if (e.target.className.match(/box/)) {
+                            // 允许拖动
+                            dragging = true;
+
+                            // 设置当前 box 的 id 为 moving_box
+                            if (document.getElementById("moving_box") !== null) {
+                                document.getElementById("moving_box").removeAttribute("id");
+                            }
+                            e.target.id = "moving_box";
+
+                            // 计算坐标差值
+                            diffX = startX - e.target.offsetLeft;
+                            diffY = startY - e.target.offsetTop;
+                        }
+                        else {
+                            // 在页面创建 box
+                            var active_box = document.createElement("div");
+                            active_box.id = "active_box";
+                            active_box.className = "box";
+                            active_box.style.top = startY + 'px';
+                            active_box.style.left = startX + 'px';
+                            document.body.appendChild(active_box);
+                            console.log(document.body)
+                            active_box = null;
+                        }
+                    }
+
+                };
+
+                // 鼠标移动
+                document.onmousemove = function(e) {
+                    if(m.flag==2) {
+
+                        // 更新 box 尺寸
+                        if (document.getElementById("active_box") !== null) {
+                            var ab = document.getElementById("active_box");
+                            ab.style.width = e.pageX - startX + 'px';
+                            ab.style.height = e.pageY - startY + 'px';
+                        }
+
+                        // 移动，更新 box 坐标
+                        if (document.getElementById("moving_box") !== null && dragging) {
+                            var mb = document.getElementById("moving_box");
+                            mb.style.top = e.pageY - diffY + 'px';
+                            mb.style.left = e.pageX - diffX + 'px';
+                        }
+                    }
+                };
+
+                // 鼠标抬起
+                document.onmouseup = function(e) {
+                       if(m.flag==2) {
+                           // 禁止拖动
+                           dragging = false;
+                           if (document.getElementById("active_box") !== null) {
+                               var ab = document.getElementById("active_box");
+                               ab.removeAttribute("id");
+                               // 如果长宽均小于 3px，移除 box
+                               if (ab.offsetWidth < 3 || ab.offsetHeight < 3) {
+                                   document.body.removeChild(ab);
+                               }
+                           }
+                       }
+
+                };
+
+
+            }
+            else
+            {
+
+
+                var can = document.getElementById("canvas");
+                var ctx = can.getContext('2d');
+                var canvasRect = can.getBoundingClientRect();
+                //矩形框的左上角坐标
+                var canvasLeft = canvasRect.left;
+                var canvasTop = canvasRect.top;
+
+                var startx = event.clientX - canvasLeft;
+                var starty = event.clientY - canvasTop;
+                ctx.beginPath();
+                ctx.arc(startx, starty, 3, 0, 2 * Math.PI);
+                ctx.fill();
+                ctx.closePath();
+            }
+        },
+
+
+
+
+
+    }
+    })
+</script>
+
+</html>
